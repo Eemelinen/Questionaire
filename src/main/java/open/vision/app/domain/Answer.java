@@ -1,62 +1,68 @@
 package open.vision.app.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@Entity
+//@Entity
 public class Answer {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long answerid;
-	private String value;
 	
-	@ManyToOne
-	@JoinColumn(name = "id")
-	private Question question;
-
-	public Answer() {}
-
-	public Answer(String value, Question question) {
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long answerId;
+	private String answerValue;
+	
+//	@OneToOne
+//	@JoinColumn(name = "questionId")
+//	private Question question;
+	
+	public Answer() {
 		super();
-		this.value = value;
-		this.question = question;
-	}
-	
-	public Long getAnswerid() {
-		return answerid;
+	}	
+
+//	public Answer(String answerValue, Question question) {
+//		super();
+//		this.answerValue = answerValue;
+//		this.question = question;
+//	}
+
+	public Answer(Long answerId, String answerValue) {
+		super();
+		this.answerId = answerId;
+		this.answerValue = answerValue;
 	}
 
-	public void setAnswerid(Long answerid) {
-		this.answerid = answerid;
+	public Long getAnswerId() {
+		return answerId;
 	}
 
-	public String getValue() {
-		return value;
+	public void setAnswerId(Long answerId) {
+		this.answerId = answerId;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public String getAnswerValue() {
+		return answerValue;
 	}
 
-	public Question getQuestions() {
-		return question;
+	public void setAnswerValue(String answerValue) {
+		this.answerValue = answerValue;
 	}
 
-	public void setQuestions(Question question) {
-		this.question = question;
-	}
+//	public Question getQuestion() {
+//		return question;
+//	}
+//
+//	public void setQuestion(Question question) {
+//		this.question = question;
+//	}
 
 	@Override
 	public String toString() {
-		return "Answer [answerid=" + answerid + ", value=" + value + ", question=" + question + "]";
+		return "Answer [answerId=" + answerId + ", answerValue=" + answerValue + ", question=" + "]";
 	}
-
+	
 }

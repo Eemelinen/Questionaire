@@ -10,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import open.vision.app.domain.Answer;
+import open.vision.app.domain.AnswerOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,54 +21,80 @@ public class Question {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long questionId;
 	private String title;
+	private String type;
+	
+	private String chosenAnswer;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
 	@JsonIgnoreProperties("questions")
-//	@JsonIgnore
-	private List<Answer> answers;
+	private List<AnswerOption> answers;
+	
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private Answer answer;
 		
-	public Question() {
-//		super();
-//		this.id = null;
-//		this.title = null;
-//		this.answer = null;
-	}
-
-	public Question(String title) {
+	public Question() {}
+	
+	public Question(String title, String type) {
 		super();
 		this.title = title;
-		// this.answer = answer;
+		this.type = type;
+	}
+	
+	public Question(Long questionId, String title, String type, String chosenAnswer) {
+		super();
+		this.questionId = questionId;
+		this.title = title;
+		this.type = type;
+		this.chosenAnswer = chosenAnswer;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Question(String title, String type, String chosenAnswer) {
+		super();
+		this.title = title;
+		this.type = type;
+		this.chosenAnswer = chosenAnswer;
 	}
 
 	public String getTitle() {
 		return title;
 	}
-	
+
+	public String getChosenAnswer() {
+		return chosenAnswer;
+	}
+
+	public void setChosenAnswer(String chosenAnswer) {
+		this.chosenAnswer = chosenAnswer;
+	}
+
+	public Long getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public List<Answer> getAnswers() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<AnswerOption> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(List<AnswerOption> answers) {
 		this.answers = answers;
 	}
-
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", title=" + title + ", answers=" + answers + "]";
-	}
-
+	
 }
