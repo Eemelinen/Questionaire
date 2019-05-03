@@ -1,22 +1,26 @@
 package open.vision.app.domain;
 
 public class AnswerCreatorObject {
-		
+
+	private String answerValue;
 	private Long questionId;
-	private String title;
-	private String type;
-	private AnswerOption chosenAnswer;
 	
 	public AnswerCreatorObject() {
 		super();
 	}
 
-	public AnswerCreatorObject(Long questionId, String title, String type, AnswerOption chosenAnswer) {
+	public AnswerCreatorObject(String answerValue, Long questionId) {
 		super();
+		this.answerValue = answerValue;
 		this.questionId = questionId;
-		this.title = title;
-		this.type = type;
-		this.chosenAnswer = chosenAnswer;
+	}
+
+	public String getAnswerValue() {
+		return answerValue;
+	}
+
+	public void setAnswerValue(String answerValue) {
+		this.answerValue = answerValue;
 	}
 
 	public Long getQuestionId() {
@@ -27,27 +31,9 @@ public class AnswerCreatorObject {
 		this.questionId = questionId;
 	}
 
-	public String getTitle() {
-		return title;
+	@Override
+	public String toString() {
+		return "AnswerCreatorObject [answerValue=" + answerValue + ", questionId=" + questionId + "]";
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public AnswerOption getChosenAnswer() {
-		return chosenAnswer;
-	}
-
-	public void setChosenAnswer(AnswerOption chosenAnswer) {
-		this.chosenAnswer = chosenAnswer;
-	}
+	
 }

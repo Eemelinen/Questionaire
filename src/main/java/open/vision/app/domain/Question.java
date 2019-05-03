@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import open.vision.app.domain.AnswerOption;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,15 +26,14 @@ public class Question {
 	private Long questionId;
 	private String title;
 	private String type;
-	
-	private String chosenAnswer;
+		
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+	@JsonBackReference
+	private List<AnswerOption> answerOptions;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-	@JsonIgnoreProperties("questions")
-	private List<AnswerOption> answers;
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private Answer answer;
+	@JsonBackReference
+	private List<Answer> answers;
 		
 	public Question() {}
 	
@@ -42,31 +43,15 @@ public class Question {
 		this.type = type;
 	}
 	
-	public Question(Long questionId, String title, String type, String chosenAnswer) {
+	public Question(Long questionId, String title, String type) {
 		super();
 		this.questionId = questionId;
 		this.title = title;
 		this.type = type;
-		this.chosenAnswer = chosenAnswer;
-	}
-
-	public Question(String title, String type, String chosenAnswer) {
-		super();
-		this.title = title;
-		this.type = type;
-		this.chosenAnswer = chosenAnswer;
 	}
 
 	public String getTitle() {
 		return title;
-	}
-
-	public String getChosenAnswer() {
-		return chosenAnswer;
-	}
-
-	public void setChosenAnswer(String chosenAnswer) {
-		this.chosenAnswer = chosenAnswer;
 	}
 
 	public Long getQuestionId() {
@@ -89,12 +74,26 @@ public class Question {
 		this.type = type;
 	}
 
-	public List<AnswerOption> getAnswers() {
+	public List<AnswerOption> getAnswerOptions() {
+		return answerOptions;
+	}
+
+	public void setAnswerOptions(List<AnswerOption> answerOptions) {
+		this.answerOptions = answerOptions;
+	}
+
+	public List<Answer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<AnswerOption> answers) {
+	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
+	}
+
+	@Override
+	public String toString() {
+		return "Question [questionId=" + questionId + ", title=" + title + ", type=" + type + ", answerOptions="
+				+ answerOptions + ", answers=" + answers + "]";
 	}
 	
 }

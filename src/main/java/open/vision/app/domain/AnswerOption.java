@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class AnswerOption {
@@ -20,6 +21,7 @@ public class AnswerOption {
 	
 	@ManyToOne
 	@JoinColumn(name = "questionId")
+	@JsonManagedReference
 	private Question question;
 
 	public AnswerOption() {}
@@ -52,11 +54,6 @@ public class AnswerOption {
 
 	public void setQuestions(Question question) {
 		this.question = question;
-	}
-
-	@Override
-	public String toString() {
-		return "Answer [answerid=" + answerOptionId + ", value=" + value + ", question=" + question + "]";
 	}
 
 }

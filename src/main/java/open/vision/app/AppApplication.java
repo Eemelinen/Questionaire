@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import open.vision.app.domain.Answer;
 import open.vision.app.domain.AnswerOption;
 import open.vision.app.domain.AnswerOptionRepository;
-//import open.vision.app.domain.AnswerRepository;
+import open.vision.app.domain.AnswerRepository;
 import open.vision.app.domain.Question;
 import open.vision.app.domain.QuestionRepository;
 
@@ -26,7 +26,7 @@ public class AppApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner lukkariKysely(QuestionRepository qRepo, AnswerOptionRepository aRepo) {
+	public CommandLineRunner lukkariKysely(QuestionRepository qRepo, AnswerOptionRepository aRepo, AnswerRepository answerRepo) {
 		return (args) -> {
 			log.info("Please tell rosie");
 									
@@ -106,6 +106,14 @@ public class AppApplication {
 			//Answers to question 11
 			aRepo.save(new AnswerOption("Ei", qRepo.findByQuestionId(11).get(0)));
 			aRepo.save(new AnswerOption("Kyllä, mitä", qRepo.findByQuestionId(11).get(0)));
+			
+			//Actual Answers
+			
+			Question testQuestion = qRepo.findByQuestionId(1).get(0);
+			answerRepo.save(new Answer("2019", testQuestion));
+			
+			Question testQuestion2 = qRepo.findByQuestionId(2).get(0);
+			answerRepo.save(new Answer("Mamemo", testQuestion2));
 			
 		};
 	}

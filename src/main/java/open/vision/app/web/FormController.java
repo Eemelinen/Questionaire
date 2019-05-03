@@ -37,12 +37,19 @@ public class FormController {
 		
 		model.addAttribute("question", qRepo.findByType("Lukkarikone5").get(0));
 		
-		List<AnswerOption> answerOptions =  qRepo.findByType("Lukkarikone5").get(0).getAnswers();
+		List<AnswerOption> answerOptions =  qRepo.findByType("Lukkarikone5").get(0).getAnswerOptions();
 		
 		model.addAttribute("answerOptions", answerOptions);
 		
 		return "answerForm";
 	}
+	
+//	@RequestMapping(value="/submit", method=RequestMethod.POST)
+//	public @ResponseBody Question sendAnswerRest(@PathVariable("questionId") Long id) {
+//		
+//		qRepo.save();
+//		return answer;
+//	}
 	
 	// == Kysymys otetaan vastaan ja tallennetaan tietokantaan. ==
 	@PostMapping("/answerForm")
@@ -94,14 +101,14 @@ public class FormController {
 		return qRepo.findByType(type).get(0);
 	}
 	
-	//RESTful service to get all answers
-	@RequestMapping(value="/answers", method = RequestMethod.GET)
+	//RESTful service to get all answer options
+	@RequestMapping(value="/answerOptions", method = RequestMethod.GET)
 	public @ResponseBody List<AnswerOption> getAnswerRest(){
 		return (List<AnswerOption>) aRepo.findAll();
 	}
 	
-	//RESTful service to get one answer by id
-	@RequestMapping(value="/answer/{answerid}", method=RequestMethod.GET)
+	//RESTful service to get one answer options by id
+	@RequestMapping(value="/answerOption/{answerid}", method=RequestMethod.GET)
 	public @ResponseBody Optional<AnswerOption> findAnswerRest(@PathVariable("answerid") Long id) {
 		return aRepo.findById(id);
 	}

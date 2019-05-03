@@ -1,39 +1,35 @@
 package open.vision.app.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-//@Entity
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity
 public class Answer {
 	
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long answerId;
 	private String answerValue;
 	
-//	@OneToOne
-//	@JoinColumn(name = "questionId")
-//	private Question question;
+	@ManyToOne
+	@JoinColumn(name = "questionId")
+	@JsonManagedReference
+	private Question question;
 	
 	public Answer() {
 		super();
 	}	
 
-//	public Answer(String answerValue, Question question) {
-//		super();
-//		this.answerValue = answerValue;
-//		this.question = question;
-//	}
-
-	public Answer(Long answerId, String answerValue) {
+	public Answer(String answerValue, Question question) {
 		super();
-		this.answerId = answerId;
 		this.answerValue = answerValue;
+		this.question = question;
 	}
 
 	public Long getAnswerId() {
@@ -52,17 +48,11 @@ public class Answer {
 		this.answerValue = answerValue;
 	}
 
-//	public Question getQuestion() {
-//		return question;
-//	}
-//
-//	public void setQuestion(Question question) {
-//		this.question = question;
-//	}
-
-	@Override
-	public String toString() {
-		return "Answer [answerId=" + answerId + ", answerValue=" + answerValue + ", question=" + "]";
+	public Question getQuestion() {
+		return question;
 	}
-	
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}	
 }

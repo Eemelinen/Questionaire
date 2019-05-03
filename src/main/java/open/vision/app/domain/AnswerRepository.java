@@ -1,11 +1,11 @@
-//package open.vision.app.domain;
-//
-//import java.util.Optional;
-//
-//import org.springframework.data.repository.CrudRepository;
-//
-//public interface AnswerRepository extends CrudRepository<Answer, Long> {
-//
-//	Optional<Answer> findByAnswerId(Long answerId);
-//	
-//}
+package open.vision.app.domain;
+
+import java.util.Optional;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface AnswerRepository extends CrudRepository<Answer, Long> {
+
+	Optional<Answer> findByAnswerId(Long answerId);
+	
+}
