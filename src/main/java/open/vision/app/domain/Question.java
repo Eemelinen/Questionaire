@@ -28,11 +28,11 @@ public class Question {
 	private String type;
 		
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-	@JsonBackReference
+	@JsonIgnoreProperties("questions")
 	private List<AnswerOption> answerOptions;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-	@JsonBackReference
+	@JsonIgnore
 	private List<Answer> answers;
 		
 	public Question() {}

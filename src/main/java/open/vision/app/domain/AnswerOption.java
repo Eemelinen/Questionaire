@@ -21,7 +21,6 @@ public class AnswerOption {
 	
 	@ManyToOne
 	@JoinColumn(name = "questionId")
-	@JsonManagedReference
 	private Question question;
 
 	public AnswerOption() {}
@@ -54,6 +53,11 @@ public class AnswerOption {
 
 	public void setQuestions(Question question) {
 		this.question = question;
+	}
+
+	@Override
+	public String toString() {
+		return "AnswerOption [answerOptionId=" + answerOptionId + ", value=" + value + ", question=" + question + "]";
 	}
 
 }

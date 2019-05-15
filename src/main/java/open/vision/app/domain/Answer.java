@@ -19,7 +19,6 @@ public class Answer {
 	
 	@ManyToOne
 	@JoinColumn(name = "questionId")
-	@JsonManagedReference
 	private Question question;
 	
 	public Answer() {

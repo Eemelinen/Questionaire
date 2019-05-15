@@ -1,11 +1,14 @@
 package open.vision.app.web;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import open.vision.app.domain.Answer;
 import open.vision.app.domain.AnswerCreatorObject;
+import open.vision.app.domain.AnswerOption;
 import open.vision.app.domain.AnswerRepository;
 import open.vision.app.domain.Question;
+import open.vision.app.domain.QuestionCreatorObject;
 import open.vision.app.domain.QuestionRepository;
 
 @RestController
@@ -48,8 +53,9 @@ public class AnswerController {
 	}
 	
 	@PostMapping(
-			value="/api/submitAnswerList",
+			value="/api/submitAnswers",
 			consumes = {MediaType.APPLICATION_JSON_VALUE})
+							// Cannot deserialize Java.Util.ArrayList
 		public List<Answer> createAnswerList(@RequestBody List<AnswerCreatorObject> requestAnswers) {
 		
 		List<Answer> answers = new ArrayList<Answer>();
@@ -83,5 +89,13 @@ public class AnswerController {
 	public @ResponseBody Optional<Answer> findAnswerIdRest(@PathVariable("answerid") Long id) {
 		return answerRepo.findByAnswerId(id);
 	}
+//	
+//	//RESTful service to get answers by questionId
+//	@RequestMapping(value="/answer/{questionId}", method=RequestMethod.GET)
+//	public @ResponseBody List<Answer> searchAnswersByQuestion(@PathVariable("questionId") Question questionId) {
+//		return (List<Answer>) answerRepo.findByQuestionId(questionId);
+//	}
+
+
 	
 }

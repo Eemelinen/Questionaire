@@ -6,14 +6,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import open.vision.app.domain.Answer;
 import open.vision.app.domain.AnswerOption;
 import open.vision.app.domain.AnswerOptionRepository;
 import open.vision.app.domain.AnswerRepository;
 import open.vision.app.domain.Question;
 import open.vision.app.domain.QuestionRepository;
-
 
 
 @SpringBootApplication
@@ -26,33 +26,44 @@ public class AppApplication {
 	}
 	
 	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings (CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("*");
+			}
+		};
+	}
+	
+	
+	@Bean
 	public CommandLineRunner lukkariKysely(QuestionRepository qRepo, AnswerOptionRepository aRepo, AnswerRepository answerRepo) {
 		return (args) -> {
 			log.info("Please tell rosie");
 									
 			//Questions
 			//1
-			qRepo.save(new Question("Minä vuonna aloitit opintosi Haaga-Heliassa?", "Aloitusvuosi"));
+			qRepo.save(new Question("Minä vuonna aloitit opintosi Haaga-Heliassa?", "monivalinta"));
 			//2
-			qRepo.save(new Question("Oletko käyttänyt Lukkarikonetta?", "Lukkarikone1"));
+			qRepo.save(new Question("Oletko käyttänyt Lukkarikonetta?", "monivalinta"));
 			//3
-			qRepo.save(new Question("Oletko kokenut Lukkarikoneen toimivaksi?", "Lukkarikone2"));
+			qRepo.save(new Question("Oletko kokenut Lukkarikoneen toimivaksi?", "monivalinta"));
 			//4
-			qRepo.save(new Question("Mitä hyvää lukkarikoneessa mielestäsi on?", "Lukkarikone3"));
+			qRepo.save(new Question("Mitä hyvää lukkarikoneessa mielestäsi on?", "avoin"));
 			//5
-			qRepo.save(new Question("Onko sinulla parannusehdotuksia Lukkarikoneen toimintaan?", "Lukkarikone4"));
+			qRepo.save(new Question("Onko sinulla parannusehdotuksia Lukkarikoneen toimintaan?", "avoin"));
 			//6
-			qRepo.save(new Question("Mitä näistä ominaisuuksista olet käyttänyt? (Voit valita useita)", "Lukkarikone5"));
+			qRepo.save(new Question("Mikä näistä ominaisuuksista on hyödyllisin?", "monivalinta"));
 			//7
-			qRepo.save(new Question("Millä laitteella yleensä käytät Lukkarikonetta", "Lukkarikone6"));
+			qRepo.save(new Question("Millä laitteella yleensä käytät Lukkarikonetta", "monivalinta"));
 			//8
-			qRepo.save(new Question("Käyttäisitkö Lukkarikonetta enemmän jos siitä olisi mobiiliversio tai sovellus?", "Lukkarikone7"));
+			qRepo.save(new Question("Käyttäisitkö Lukkarikonetta enemmän jos siitä olisi mobiiliversio tai sovellus?", "monivalinta"));
 			//9
-			qRepo.save(new Question("Kuinka usein tarkastelet lukujärjestystäsi Lukkarikoneesta?", "Lukkarikone8"));
+			qRepo.save(new Question("Kuinka usein tarkastelet lukujärjestystäsi Lukkarikoneesta?", "monivalinta"));
 			//10
-			qRepo.save(new Question("Haluaisitko itse vaikuttaa Lukkarikoneen ulkoasuun?", "Lukkarikone9"));
+			qRepo.save(new Question("Haluaisitko itse vaikuttaa Lukkarikoneen ulkoasuun?", "monivalinta"));
 			//11
-			qRepo.save(new Question("Onko sinulla ollut ongelmia Lukkarikoneen käytössä?", "Lukkarikone10"));
+		  //qRepo.save(new Question("Onko sinulla ollut ongelmia Lukkarikoneen käytössä?", "monivalinta"));
 			
 			//Answers to question 1
 			aRepo.save(new AnswerOption("2019", qRepo.findByQuestionId(1).get(0)));
@@ -80,7 +91,7 @@ public class AppApplication {
 			aRepo.save(new AnswerOption("Kurssin hakeminen kurssin nimellä", qRepo.findByQuestionId(6).get(0)));
 			aRepo.save(new AnswerOption("Kurssin hakeminen kurssitunnuksella", qRepo.findByQuestionId(6).get(0)));
 			aRepo.save(new AnswerOption("Kurssien hakeminen oman lukujärjestyksen tyhjiin kohtiin", qRepo.findByQuestionId(6).get(0)));
-			aRepo.save(new AnswerOption("Etsinyt valmiita lukujärjestyksiä ryhmätunnuksella", qRepo.findByQuestionId(6).get(0)));
+			aRepo.save(new AnswerOption("Valmiiden lukujärjestysten etsiminen ryhmätunnuksella", qRepo.findByQuestionId(6).get(0)));
 
 			//Answers to question 7
 			aRepo.save(new AnswerOption("Tietokoneella", qRepo.findByQuestionId(7).get(0)));
@@ -104,16 +115,18 @@ public class AppApplication {
 			aRepo.save(new AnswerOption("En", qRepo.findByQuestionId(10).get(0)));
 			
 			//Answers to question 11
-			aRepo.save(new AnswerOption("Ei", qRepo.findByQuestionId(11).get(0)));
-			aRepo.save(new AnswerOption("Kyllä, mitä", qRepo.findByQuestionId(11).get(0)));
+//			aRepo.save(new AnswerOption("Ei", qRepo.findByQuestionId(11).get(0)));
+//			aRepo.save(new AnswerOption("Kyllä, mitä", qRepo.findByQuestionId(11).get(0)));
 			
 			//Actual Answers
 			
-			Question testQuestion = qRepo.findByQuestionId(1).get(0);
-			answerRepo.save(new Answer("2019", testQuestion));
+//			Question testQuestion = qRepo.findByQuestionId(1).get(0);
+//			answerRepo.save(new Answer("Johan on ", testQuestion));
 			
-			Question testQuestion2 = qRepo.findByQuestionId(2).get(0);
-			answerRepo.save(new Answer("Mamemo", testQuestion2));
+//			Question testQuestion2 = qRepo.findByQuestionId(2).get(0);
+//			answerRepo.save(new Answer("Mamemo", testQuestion2));
+			
+			
 			
 		};
 	}
